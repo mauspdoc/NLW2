@@ -20,6 +20,7 @@
     "eslint-plugin-import": "^2.22.0"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.2"
   }
 }
