@@ -33,6 +33,33 @@ const proffys = [
     time_to: [1220],
   },
 ];
+const weekdays = [
+  'Domingo',
+  'Segunda-feira',
+  'Terça-feira',
+  'Quarta-feira',
+  'Quinta-feira',
+  'Sexta-feira',
+  'Sábado',
+];
+
+const subjects = [
+  'Artes',
+  'Biologia',
+  'Ciências',
+  'Educação física',
+  'Física',
+  'Geografia',
+  'História',
+  'Matemática',
+  'Português',
+  'Química',
+];
+
+const getSubject = function getSubjectById(subjectIdNumber) {
+  const indexInArray = Number(subjectIdNumber) - 1;
+  return subjects[indexInArray];
+};
 
 // express return a function
 const express = require('express');
@@ -53,8 +80,25 @@ server.use(express.static('public'));
 // req --> "client"
 // resp --> "response from server"
 const pageLanding = function pageLanding(req, resp) { resp.render('index.html'); };
-const pageStudy = function pageStudy(req, resp) { resp.render('study.html', { proffys }); };
-const pageGiveClasses = function pageGiveClasses(req, resp) { resp.render('give-classes.html'); };
+const pageStudy = function pageStudy(req, resp) {
+  const filters = req.query; // querystring from request
+  resp.render('study.html', {
+    proffys, filters, subjects, weekdays,
+  });
+};
+const pageGiveClasses = function pageGiveClasses(req, resp) {
+  const data = req.query;
+  const dataLength = Object.keys(data).length;
+  const isDataEmpty = dataLength === 0; // Check if has some name
+  const isDataValid = dataLength === 9;
+
+  if (!isDataEmpty && isDataValid) {
+    data.subject = getSubject(data.subject);
+    proffys.push(data);
+    return resp.redirect('/study');
+  }
+  return resp.render('give-classes.html', { subjects, weekdays });
+};
 
 // Routes
 server.get('/', pageLanding);
