@@ -59,7 +59,6 @@ const pageGiveClasses = function pageGiveClasses(req, resp) {
   });
 };
 async function saveClasses(req, resp) {
-  console.log('oie');
   const proffyValue = {
     name: req.body.name,
     avatar: req.body.avatar,
