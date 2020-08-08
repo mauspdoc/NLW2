@@ -14,7 +14,7 @@ const pageStudy = async function pageStudy(req, resp) {
   const filters = req.query; // querystring from request
 
   if (!filters.subject || !filters.weekday || !filters.time) {
-    resp.render('study.html', {
+    return resp.render('study.html', {
       filters,
       subjects,
       weekdays,
