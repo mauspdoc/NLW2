@@ -47,5 +47,5 @@ Database.then(async (db) => {
         WHERE class_schedule.class_id = "1"
         AND class_schedule.weekday = "0"
     `);
-  // console.log(selectedClasssesSchedules);
+  console.log(selectedClasssesSchedules);
 });
